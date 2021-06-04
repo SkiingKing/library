@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @ToString
-public class Book {
+public class Book{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +24,10 @@ public class Book {
 
     private String description;
 
-    private String category;
+    private String book_category;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 }

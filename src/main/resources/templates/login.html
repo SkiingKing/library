@@ -26,10 +26,10 @@
     <div class="alert alert-danger" th:if="${param.error}">Invalid username and password</div>
 
     <div th:value="message"></div>
-    <form  th:action="@{/login_form}" method="post">
+    <form  th:action="@{/login}" method="post">
         <div class="form-group">
             <p>Email:</p>
-            <input type="email" id="email" name="email"/><br/>
+            <input type="text" id="username" name="username"/><br/>
         </div>
         <br/>
         <div class="form-group">

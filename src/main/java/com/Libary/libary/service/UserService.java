@@ -39,9 +39,9 @@ public class UserService {
         return user;
     }
 
-    public User findByName(String name) {
-        return userRepository.findByEmail(name);
-    }
+//    public User findByName(String name) {
+//        return userRepository.findByEmail(name);
+//    }
 
     public void createLibrarian(User user) {
         create(user, Role.LIBRARIAN);

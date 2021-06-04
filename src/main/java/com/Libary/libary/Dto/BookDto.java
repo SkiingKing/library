@@ -1,6 +1,7 @@
 package com.Libary.libary.Dto;
 
 
+import com.Libary.libary.entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,5 @@ public class BookDto {
     private String description;
 
     @NotNull
-    private String category;
+    private String book_category;
 }

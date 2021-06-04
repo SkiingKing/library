@@ -1,39 +1,36 @@
 package com.Libary.libary.Controller;
 
 import com.Libary.libary.Dto.UserDto;
-import com.Libary.libary.entity.Role;
-import com.Libary.libary.entity.User;
+import com.Libary.libary.entity.Book;
 import com.Libary.libary.exeption.UserNotFoundException;
+import com.Libary.libary.service.BookService;
 import com.Libary.libary.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Collection;
+import java.util.List;
 
 
 @Controller
+@RequestMapping
 public class PageController {
     private static final Logger logger = LoggerFactory.getLogger(PageController.class);
 
     private final UserService userService;
 
+    private final BookService bookService;
+
     @Autowired
-    public PageController(UserService userService) {
+    public PageController(UserService userService, BookService bookService) {
         this.userService = userService;
+        this.bookService = bookService;
     }
 
     /**
@@ -47,21 +44,29 @@ public class PageController {
         return "/login";
     }
 
+    @GetMapping("/user/result")
+    public String result(Model model) {
+        logger.info("Result page visited");
+        List<Book> bookList = bookService.findAll();
+        model.addAttribute("bookList", bookList);
+        return "/user/result";
+    }
+
     /**
      * Method provide pos mapping to login
      *
      * @return welcome page
      */
-    @PostMapping("/login_form")
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
-        return "/user/result";
-    }
+//    @PostMapping("/login_form")
+//    public String login(Model model, String error, String logout) {
+//        if (error != null)
+//            model.addAttribute("error", "Your username and password is invalid.");
+//
+//        if (logout != null)
+//            model.addAttribute("message", "You have been logged out successfully.");
+//
+//        return "/user/result";
+//    }
 
 
     /**

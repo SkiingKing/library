@@ -1,4 +1,4 @@
-package com.Libary.libary.service;
+package com.Libary.libary.security;
 
 import com.Libary.libary.Dto.UserDto;
 import com.Libary.libary.entity.Role;
@@ -20,8 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Service
-@Qualifier("userDetailsService")
+@Service("userDetailsServiceImpl")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -32,15 +31,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userName){
-        User user = userRepository.findByEmail(userName);
-        if (user == null) throw new UsernameNotFoundException(userName);
-
-        List<Role> grantedAuthorities = Arrays.asList(Role.values());
-//        for (Role role : grantedAuthorities){
-//            grantedAuthorities.add(new SimpleGrantedAuthority(role.getAuthority()));
-//        }
-
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
+    public UserDetails loadUserByUsername(String email){
+        User user = userRepository.findByEmail(email).orElseThrow(()->
+                new UsernameNotFoundException("User dosen`t exixts!"));
+     return SecurityUser.fromUser(user);
     }
 }

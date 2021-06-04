@@ -1,6 +1,7 @@
 package com.Libary.libary.service;
 
 import com.Libary.libary.Dto.BookDto;
+import com.Libary.libary.Dto.CategoryDto;
 import com.Libary.libary.entity.Book;
 import com.Libary.libary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,6 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Book findByName(String name) {
-        return bookRepository.findByName(name);
-    }
 
     public List<Book> findByAuthorOrName(String text) {
         return bookRepository.findAll().stream()
@@ -30,12 +28,16 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public Book saveBookFromDTO(BookDto bookDTO) {
+    public List<Book> findAll(){
+        return bookRepository.findAll().stream().collect(Collectors.toList());
+    }
+
+    public Book saveBookFromDTO(BookDto bookDTO, CategoryDto categoryDto) {
         Book book = Book.builder()
                 .name(bookDTO.getName())
                 .author(bookDTO.getAuthor())
                 .description(bookDTO.getDescription())
-                .category(bookDTO.getCategory()).build();
+                .book_category(categoryDto.getName()).build();
 
         return bookRepository.save(book);
     }
