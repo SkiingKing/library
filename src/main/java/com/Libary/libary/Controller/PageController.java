@@ -25,12 +25,9 @@ public class PageController {
 
     private final UserService userService;
 
-    private final BookService bookService;
-
     @Autowired
-    public PageController(UserService userService, BookService bookService) {
+    public PageController(UserService userService) {
         this.userService = userService;
-        this.bookService = bookService;
     }
 
     /**
@@ -43,30 +40,6 @@ public class PageController {
         logger.info("Login page visited");
         return "/login";
     }
-
-    @GetMapping("/user/result")
-    public String result(Model model) {
-        logger.info("Result page visited");
-        List<Book> bookList = bookService.findAll();
-        model.addAttribute("bookList", bookList);
-        return "/user/result";
-    }
-
-    /**
-     * Method provide pos mapping to login
-     *
-     * @return welcome page
-     */
-//    @PostMapping("/login_form")
-//    public String login(Model model, String error, String logout) {
-//        if (error != null)
-//            model.addAttribute("error", "Your username and password is invalid.");
-//
-//        if (logout != null)
-//            model.addAttribute("message", "You have been logged out successfully.");
-//
-//        return "/user/result";
-//    }
 
 
     /**

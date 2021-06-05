@@ -3,6 +3,7 @@ package com.Libary.libary.service;
 import com.Libary.libary.Dto.BookDto;
 import com.Libary.libary.Dto.CategoryDto;
 import com.Libary.libary.entity.Book;
+import com.Libary.libary.entity.Category;
 import com.Libary.libary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,12 +33,20 @@ public class BookService {
         return bookRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    public Book saveBookFromDTO(BookDto bookDTO, CategoryDto categoryDto) {
+    public void createBook(Book book){
+        create(book);
+    }
+
+    public void create(Book book){
+        bookRepository.save(book);
+    }
+
+    public Book saveBookFromDTO(BookDto bookDTO) {
         Book book = Book.builder()
                 .name(bookDTO.getName())
                 .author(bookDTO.getAuthor())
                 .description(bookDTO.getDescription())
-                .book_category(categoryDto.getName()).build();
+                .book_category(bookDTO.getBook_category()).build();
 
         return bookRepository.save(book);
     }

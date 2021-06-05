@@ -1,6 +1,7 @@
 package com.Libary.libary.Controller;
 
 import com.Libary.libary.entity.Book;
+import com.Libary.libary.entity.Category;
 import com.Libary.libary.service.BookService;
 import com.Libary.libary.service.UserService;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,6 +34,15 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/user/result")
+    public String result(Model model) {
+        logger.info("Result page visited");
+        List<Book> bookList = bookService.findAll();
+        model.addAttribute("bookList", bookList);
+        return "/user/result";
+    }
+
+
     /**
      * Method searches books according text parameter
      * @param text used for search condition
@@ -42,8 +53,12 @@ public class UserController {
     public String search(@RequestParam(name = "text") String text, Model model) {
         List<Book> bookList = bookService.findByAuthorOrName(text);
         model.addAttribute("bookList", bookList);
+
+
         return "/user/result";
     }
 
+    }
 
-}
+
+
