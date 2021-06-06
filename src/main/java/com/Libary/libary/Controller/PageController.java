@@ -1,9 +1,6 @@
 package com.Libary.libary.Controller;
 
 import com.Libary.libary.Dto.UserDto;
-import com.Libary.libary.entity.Book;
-import com.Libary.libary.exeption.UserNotFoundException;
-import com.Libary.libary.service.BookService;
 import com.Libary.libary.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+
 
 
 @Controller
@@ -68,14 +65,4 @@ public class PageController {
         return "/user/result";
     }
 
-    @GetMapping("/accessDenied")
-    public String access() {
-        return "/accessDenied";
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({UserNotFoundException.class})
-    public String handleException() {
-        return "/user/exception";
-    }
 }

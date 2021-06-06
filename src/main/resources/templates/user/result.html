@@ -59,9 +59,9 @@
                 <td th:text="${book.getDescription()}"></td>
                 <td th:text="${book.getBook_category()}"></td>
                 <td>
-                    <form th:action="@{/librarian/__${book.id}__/edit}" th:method="PATCH">
-                        <button type="submit" class="btn btn-primary">Edit book</button>
-                    </form>
+                        <form th:action="@{/librarian/__${book.id}__/edit}" th:method="PATCH">
+                            <button type="submit" class="btn btn-primary">Edit book</button>
+                        </form>
                 </td>
                 <td>
                     <form th:action="@{/librarian/__${book.id}__}" th:method="DELETE">

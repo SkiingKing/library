@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -23,42 +26,43 @@ public class UserController {
      * The value is used to access book repository and operations
      */
     private final BookService bookService;
-    /**
-     * The value is used to access user repository and operations
-     */
-    private final UserService userService;
+
 
     @Autowired
-    public UserController(BookService bookService, UserService userService) {
+    public UserController(BookService bookService) {
         this.bookService = bookService;
-        this.userService = userService;
     }
 
+    /**
+     * Method provide get mapping to result
+     * @param model to add attributes booklist of book
+     * @return result page
+     */
     @GetMapping("/user/result")
     public String result(Model model) {
         logger.info("Result page visited");
         List<Book> bookList = bookService.findAll();
+        Comparator<Book> NameComparator = Comparator.comparing(Book::getBook_category);
+        Collections.sort(bookList,NameComparator);
+
         model.addAttribute("bookList", bookList);
         return "/user/result";
     }
-
 
     /**
      * Method searches books according text parameter
      * @param text used for search condition
-     * @param model to add attributes finded books
+     * @param model to add attributes booklist of book
      * @return page with results
      */
+
     @PostMapping("/search")
     public String search(@RequestParam(name = "text") String text, Model model) {
         List<Book> bookList = bookService.findByAuthorOrName(text);
         model.addAttribute("bookList", bookList);
-
-
         return "/user/result";
     }
-
-    }
+}
 
 
 

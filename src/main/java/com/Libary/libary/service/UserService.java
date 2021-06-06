@@ -3,7 +3,6 @@ package com.Libary.libary.service;
 import com.Libary.libary.Dto.UserDto;
 import com.Libary.libary.entity.Role;
 import com.Libary.libary.entity.User;
-import com.Libary.libary.exeption.UserNotFoundException;
 import com.Libary.libary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,10 +39,6 @@ public class UserService {
 
         return user;
     }
-
-//    public User findByName(String name) {
-//        return userRepository.findByEmail(name);
-//    }
 
     public void createLibrarian(User user) {
         create(user, Role.LIBRARIAN);

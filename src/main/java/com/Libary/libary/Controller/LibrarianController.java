@@ -31,6 +31,11 @@ public class LibrarianController {
         this.categoryService = categoryService;
         this.bookService = bookService;
     }
+    /**
+     * Method provide get mapping to add new category
+     *
+     * @return add_category page
+     */
 
     @GetMapping("/add_new_category")
     public String addNewCategory(Model model) {
@@ -39,6 +44,11 @@ public class LibrarianController {
         return "/librarian/add_category";
     }
 
+    /**
+     * Method provide post mapping to add category
+     *
+     * @return add_category page
+     */
 
     @PostMapping("/add_category")
     public String addCategory(@Valid @ModelAttribute("cetegoryDto") CategoryDto categoryDto, BindingResult bindingResult) {
@@ -49,6 +59,11 @@ public class LibrarianController {
         return "redirect:/user/result";
     }
 
+    /**
+     * Method provide get mapping to add new book
+     *
+     * @return add_new_book page
+     */
 
     @GetMapping("/add_new_book")
     public String addNewBook(Model model) {
@@ -58,6 +73,11 @@ public class LibrarianController {
         return "/librarian/add_book";
     }
 
+    /**
+     * Method provide post mapping to add book
+     *
+     * @return add_book page
+     */
 
     @PostMapping("/add_book")
     public String addBook(@Valid @ModelAttribute("bookDto")
@@ -70,11 +90,22 @@ public class LibrarianController {
         return "redirect:/user/result";
     }
 
+    /**
+     * Method provide get mapping to edit book
+     *
+     * @return edit_book page
+     */
       @GetMapping("/{id}/edit")
       public String edit(Model model,@PathVariable("id") String id){
         model.addAttribute("book",bookService.findBookById(Long.parseLong(id)));
         return "/librarian/edit_book";
       }
+
+    /**
+     * Method provide patch mapping to update
+     *
+     * @return result page
+     */
 
       @PatchMapping("/update/{id}")
         public String update(@ModelAttribute("book") Book book,
@@ -83,12 +114,15 @@ public class LibrarianController {
         return "redirect:/user/result";
       }
 
+    /**
+     * Method provide delete mapping to delete
+     *
+     * @return result page
+     */
+
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") String id){
         bookService.delete(Long.parseLong(id));
         return "redirect:/user/result";
     }
-
-
-
 }

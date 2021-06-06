@@ -1,8 +1,10 @@
 package com.Libary.libary.entity;
 
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 
 @Setter
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @ToString
-public class Book{
+public class Book implements Comparable<Book>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +32,11 @@ public class Book{
     @JoinColumn(name = "category_id")
     private Category category;
 
+
+
+
+    @Override
+    public int compareTo(@NotNull Book o) {
+        return 0;
+    }
 }
