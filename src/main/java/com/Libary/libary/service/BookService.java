@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,5 +50,22 @@ public class BookService {
                 .book_category(bookDTO.getBook_category()).build();
 
         return bookRepository.save(book);
+    }
+
+    public Book findBookById(Long id){
+        return bookRepository.findBookById(id);
+    }
+
+    public void update(Long id,Book upBook){
+        Book bookToBeUpdated = findBookById(id);
+        bookToBeUpdated.setName(upBook.getName());
+        bookToBeUpdated.setAuthor(upBook.getAuthor());
+        bookToBeUpdated.setDescription(upBook.getDescription());
+        bookToBeUpdated.setCategory(upBook.getCategory());
+        bookRepository.save(bookToBeUpdated);
+    }
+
+    public void delete(Long id){
+        bookRepository.deleteById(id);
     }
 }

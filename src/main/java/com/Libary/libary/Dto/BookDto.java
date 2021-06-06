@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class BookDto {
 
+
+    private Long id;
     @NotNull
     private String name;
 

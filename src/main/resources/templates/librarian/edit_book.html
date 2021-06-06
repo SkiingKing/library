@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+</head>
+<body>
+<div id="container">
+<form th:method="PATCH"  th:action="@{/librarian/update/__${book.id}__}" th:object="${book}">
+    <div class="form-group">
+        <div class="form-group">
+            <p>Name:</p>
+            <input type="text" id="name"  th:field="*{name}" required>
+        </div>
+
+        <div class="form-group">
+            <p>Author:</p>
+            <input type="text" name="author"  th:field="*{author}" required>
+            <br/>
+        </div>
+        <div class="form-group">
+            <p>Description:</p>
+            <input type="text" name="description"  th:field="*{description}" size="50" required>
+            <br/>
+        </div>
+        <div class="form-group">
+            <p>Category name:</p>
+            <div class="form-group blu-margin">
+                <!--                    <select class="form-control" th:field="${list_of_category}" id="book_category">-->
+                <!--                        <option  th:each="book_category:${list_of_category}" th:value="*{book_category}" th:text="${book_category.name}"></option>-->
+                <!--                    </select>-->
+                <input type="text" name="book_category"  th:field="*{book_category}" required>
+            </div>
+            <br/>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+</div>
+</body>
+</html>

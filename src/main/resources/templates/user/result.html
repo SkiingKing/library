@@ -27,6 +27,7 @@
                         <button type="submit" class="btn btn-primary">Add book</button>
                     </form>
                 </li>
+
             </ul>
         </nav>
     </div>
@@ -57,6 +58,16 @@
                 <td th:text="${book.getAuthor()}"></td>
                 <td th:text="${book.getDescription()}"></td>
                 <td th:text="${book.getBook_category()}"></td>
+                <td>
+                    <form th:action="@{/librarian/__${book.id}__/edit}" th:method="PATCH">
+                        <button type="submit" class="btn btn-primary">Edit book</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/librarian/__${book.id}__}" th:method="DELETE">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
